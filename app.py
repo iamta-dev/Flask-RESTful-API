@@ -15,7 +15,7 @@ wt = WeatherCity()
 
 @app.route("/")
 def viewIndex():
-    return render_template('index3.html',weathers = wt.getWeatherCity())
+    return render_template('index.html',weathers = wt.getWeatherCity())
 
 if __name__=="__main__":
     app.run(debug=True, port=8080)
