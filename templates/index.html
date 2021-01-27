@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- <meta http-equiv="refresh" content="1" />  -->
+
+    <!-- font-awesome CSS -->
+    <script src="{{ url_for('static', filename='fontawesome5/all.js') }}"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='Bootstrap4/bootstrap.min.css') }}">
+
+    <title>Web Weather City </title>
+    <script type="text/javascript">
+  
+        setTimeout(function () { 
+            // location.reload(1); 
+        }, 5000);
+        
+    </script>
+</head>
+
+<body>
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark " style="background-color: #1C2331;color: white;">
+        <div class="d-flex w-50 order-0">
+            <a class="navbar-brand" href="https://drive.google.com/file/d/1KlDmVZEYAa7U0KMyiriPOzSt2dkRX-nG/view">
+                <img src="{{ url_for('static', filename='Brand/School_Icon.png') }}" width="90" height="90"
+                    style="vertical-align: middle;border-radius: 50%; margin-right: 15px;">
+                <label style="font-size: 30px;">Weather City</label>
+            </a>
+        </div>
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="http://localhost:8080/" style="margin: 20px; font-size: 20px;">Home</a>
+            </li>
+
+
+        </ul>
+        <button data-toggle="modal" data-target="#groupMembers"
+            class="btn btn-outline-success my-2 my-sm-0 order-md-last text-right" type="button"
+            style="margin: 20px; font-size: 20px;">
+            Developer
+        </button>
+
+
+    </nav>
+
+    <div style="margin-left: 40px;margin-right: 40px; margin-top: 80px; margin-bottom: 100px;">
+        <br><br>
+        <h1 class="display-6">Web application using Flask and Flask RESTful API </h1>
+
+        <br>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addFrom">
+            <i class="fas fa-link"></i>Add Data
+        </button>
+        <br>
+        <br>
+
+        <div class="row" style="margin: 20px; margin-bottom: 30px;">
+            <div style="background-color: #007BFF; width: 50px;height: 50px;border-radius: 50%; margin-right: 5px;">
+
+            </div>
+            <span style="font-weight: bold; font-size: large; margin-top: 10px;margin-right: 10px;">
+                message-1</span>
+            <div style="background-color: #CCD1D1; width: 50px;height: 50px;border-radius: 50%; margin-right: 5px;">
+
+            </div>
+            <span
+                style="font-weight: bold; font-size: large; margin-top: 10px;margin-right: 10px;">
+                message-2&nbsp;&nbsp;<a href="http://localhost:8080/#">Link</a></span>
+
+
+        </div>
+
+        <div style="padding-right: 40px; width: max-content;">
+            <table class="table table-bordered table-hover">
+                <!-- style="background-color: #58D68D;" #566573-->
+                <thead style="background-color: #CCD1D1;">
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">name</th>
+                        <th scope="col">temp</th>
+                        <th scope="col">weather</th>
+                        <th scope="col">people</th>
+
+                    </tr>
+                </thead>
+                <!-- style="background-color: ##F8F9F9;" -->
+                <tbody style="background-color: #F8F9F9;">
+                  
+                    {% for wt in weathers[::-1] %}
+                    <tr id="TrId" data-toggle="modal" data-target="#rowTable"
+                        style="cursor: pointer;">
+                        <th scope="row"><span id="id{{ wt.id }}">{{ wt.id }}</span></th>
+                        <td><span id="name{{ wt.id }}">{{ wt.name }}</span></td>
+                        <td><span id="temp{{ wt.id }}">{{ wt.temp }}</span></td>
+                        <td><span id="weather{{ wt.id }}">{{ wt.weather }}</span></td>
+                        <td><span id="people{{ wt.id }}">{{ wt.people }}</span></td>
+                    </tr>
+                    {% endfor %}
+                 
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Add BlockChain-->
+    <div class="modal fade" id="addFrom" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form class="px-4 py-3" action="http://localhost:8080/newBlock/" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 30px;">
+                            <i class="fas fa-dice-d6"></i> &nbsp;Add Weather City
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <h5 class="modal-title" style="font-size: 15px;">
+                            <i class="fas fa-scroll"></i> &nbsp;Weather City
+                        </h5>
+                        <div style="padding: 20px;">
+
+                            <div class="form-group">
+                                <label >name</label>
+                                <input type="text" class="form-control" name="name" placeholder="Fill name">
+                            </div>
+                            <div class="form-group">
+                                <label >temp</label>
+                                <input type="text" class="form-control" name="temp" placeholder="Fill book">
+                            </div>
+                            <div class="form-group">
+                                <label >weather</label>
+                                <input type="text" class="form-control" name="weather" placeholder="Fill weather">
+                            </div>
+                            <div class="form-group">
+                                <label >people</label>
+                                <input type="text" class="form-control" name="people" placeholder="Fill people">
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Group Detail -->
+    <div class="modal fade" id="groupMembers" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 30px;">
+                        <i class="fas fa-user-friends"></i> &nbsp;Developer
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row text-center" style="color:#007BFF;">
+                            <div class="col-md-3 ">
+
+                                <img src="{{ url_for('static', filename='GroupMembers/Ta Natthawat.jpg') }}" width="200"
+                                    height="200" style="vertical-align: middle;border-radius: 50%;">
+                                <h5 style="margin-top: 10px; ">B6015695</h5>
+                                <h5 style="margin-top: 10px;"><a href="https://www.facebook.com/na10tthawat"><i
+                                            class="fab fa-facebook" color="#2196F3"></i>&nbsp;นายณัฐวัตร นารินทร์</a>
+                                </h5>
+
+                            </div>
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="navbar fixed-bottom" style="background-color: #1C2331;color: white;">
+        <footer>
+
+            <!-- Copyright -->
+            <div class="footer-copyright text-center py-3">© 2020 Copyright:
+                <a href="https://github.com/newler55"> GitHub:newler55</a> CPE#22 | SUT#25
+            </div>
+            <!-- Copyright -->
+
+        </footer>
+    </div>
+    <!-- Footer -->
+
+    <!-- Optional JavaScript -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{{ url_for('static', filename='Bootstrap4/jquery-3.4.1.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='Bootstrap4/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='Bootstrap4/bootstrap.min.js') }}"></script>
+
+</body>
+
+</html>
